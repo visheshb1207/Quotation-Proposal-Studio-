@@ -1,0 +1,25 @@
+[project]
+name = "quotation-studio"
+version = "0.1.0"
+description = "Tool 03 - Quotation, Proposal & Payment-Reminder Studio. Arithmetic and field correctness, provably."
+requires-python = ">=3.11"
+# The engine and CLI. Rendering additionally needs the `typst` binary, which
+# is not a Python package -- see the README.
+dependencies = [
+    "pdfplumber>=0.11",   # reads the rendered PDF back for verification
+    "segno>=1.6",         # the UPI intent QR
+]
+
+[project.optional-dependencies]
+web = ["fastapi>=0.110", "uvicorn>=0.27"]
+dev = ["pytest>=8.0", "fastapi>=0.110", "uvicorn>=0.27"]
+
+[project.scripts]
+quotation-studio = "quotation_studio.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

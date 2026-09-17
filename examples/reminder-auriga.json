@@ -1,0 +1,52 @@
+{
+  "number": "REM-2026-0031",
+  "as_of": "2026-09-17",
+
+  "reference": {
+    "kind": "invoice",
+    "number": "INV-2026-0311",
+    "dated": "2026-08-01",
+    "amount": "275530.00"
+  },
+  "credit_days": 15,
+
+  "supplier": {
+    "name": "Meridian Learning Labs LLP",
+    "gstin": "27AAPFU0939F1ZV",
+    "state_code": "27",
+    "address": ["4th Floor, Trellis House", "Prabhadevi, Mumbai 400025"],
+    "email": "accounts@meridianlabs.in",
+    "phone": "+91 98200 41123"
+  },
+
+  "client": {
+    "name": "Auriga Systems Pvt Ltd",
+    "state_code": "29",
+    "address": ["Plot 14, Outer Ring Road", "Bellandur, Bengaluru 560103"],
+    "email": "payables@aurigasystems.in"
+  },
+
+  "payments": [
+    {
+      "received_on": "2026-08-20",
+      "amount": "100000.00",
+      "method": "NEFT",
+      "reference": "AXISN26082000418"
+    }
+  ],
+
+  "interest": {
+    "rate_percent_per_annum": "14",
+    "declared_in": "clause 4 of purchase order AUR/PO/2026/4412",
+    "day_count_basis": 365
+  },
+
+  "history": ["2026-08-24"],
+
+  "terms": [
+    "Please quote the reference number above with any payment.",
+    "If any part of this amount is disputed, tell us which part and why, and we will hold the rest."
+  ],
+  "notes": "Happy to take this on a call if a phased settlement would help.",
+  "upi_id": "meridianlabs@okhdfcbank"
+}

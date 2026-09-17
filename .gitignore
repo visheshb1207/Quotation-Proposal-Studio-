@@ -1,0 +1,21 @@
+# Rendered output. Every document here is reproducible from examples/ plus the
+# engine, so none of it belongs in the repository.
+out/
+*.pdf
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# Tooling
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# macOS
+.DS_Store

@@ -1,0 +1,206 @@
+:root{
+  --bg:#f6f7f9; --panel:#fff; --panel-2:#fbfcfd;
+  --ink:#14161d; --ink-2:#3c4250; --muted:#5e6575;
+  --rule:#dfe3ea; --rule-2:#eef1f5;
+  --accent:#1b3a6b; --accent-soft:#e8eef8;
+  --ok:#136b3a; --ok-soft:#e6f4ec;
+  --warn:#8a5a00; --warn-soft:#fff6e3;
+  --bad:#a3241f; --bad-soft:#fdeceb;
+  --mono:"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0f1116; --panel:#161922; --panel-2:#1b1f29;
+    --ink:#e8eaf0; --ink-2:#c2c7d2; --muted:#8b93a3;
+    --rule:#2a3040; --rule-2:#222736;
+    --accent:#7aa5e6; --accent-soft:#1b2740;
+    --ok:#6fd49b; --ok-soft:#13291d;
+    --warn:#e3b45f; --warn-soft:#2d2413;
+    --bad:#f08a84; --bad-soft:#2e1614;
+  }
+}
+*{box-sizing:border-box}
+
+/* The UA stylesheet gives [hidden] display:none, but ANY author rule that sets
+   display beats it -- .attached{display:flex} was winning, so an empty chip
+   showed on every reminder with no original document attached. The whole page
+   hides things with the hidden property, including the mode switch, so this is
+   stated once rather than guarded rule by rule. */
+[hidden]{display:none !important}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+header{
+  background:var(--panel);border-bottom:1px solid var(--rule);
+  padding:14px 22px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+  position:sticky;top:0;z-index:20;
+}
+header h1{margin:0;font-size:16px;letter-spacing:-.01em}
+header .claim{color:var(--muted);font-size:12px}
+header .spacer{flex:1}
+.env{font-size:11px;color:var(--muted);font-family:var(--mono)}
+.env b{color:var(--ok)}
+.env b.off{color:var(--bad)}
+
+.wrap{display:grid;grid-template-columns:minmax(380px,1fr) minmax(420px,1fr);
+  gap:18px;padding:18px 22px;align-items:start;max-width:1500px;margin:0 auto}
+@media (max-width:980px){.wrap{grid-template-columns:1fr}}
+
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:8px;
+  margin-bottom:16px;overflow:hidden}
+.card > h2{
+  margin:0;padding:11px 15px;font-size:12px;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--muted);border-bottom:1px solid var(--rule);
+  background:var(--panel-2);font-weight:600;display:flex;gap:8px;align-items:center
+}
+.card > h2 .note{text-transform:none;letter-spacing:0;font-weight:400;font-size:11px}
+.card .body{padding:14px 15px}
+
+label{display:block;font-size:11px;color:var(--muted);margin-bottom:4px;
+  text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+input,select,textarea{
+  width:100%;padding:7px 9px;border:1px solid var(--rule);border-radius:5px;
+  background:var(--panel-2);color:var(--ink);font:inherit;font-size:13px
+}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent-soft);
+  border-color:var(--accent)}
+input.num{font-family:var(--mono);text-align:right}
+.field{margin-bottom:11px}
+.row{display:grid;gap:10px}
+.row.two{grid-template-columns:1fr 1fr}
+.row.three{grid-template-columns:1fr 1fr 1fr}
+
+.field.bad input,.field.bad select{border-color:var(--bad);background:var(--bad-soft)}
+.field .err{color:var(--bad);font-size:11.5px;margin-top:4px;
+  text-transform:none;letter-spacing:0;font-weight:400}
+.field .hint{color:var(--muted);font-size:11.5px;margin-top:4px;
+  text-transform:none;letter-spacing:0;font-weight:400}
+.field .hint.ok{color:var(--ok)}
+
+.gate{display:flex;flex-direction:column;gap:9px}
+.gate .q{display:flex;gap:10px;align-items:flex-start;padding:9px 10px;
+  border:1px solid var(--rule);border-radius:6px;background:var(--panel-2)}
+.gate .q p{margin:0;font-size:12.5px;color:var(--ink-2);flex:1}
+.toggle{display:inline-flex;border:1px solid var(--rule);border-radius:5px;
+  overflow:hidden;flex:none}
+.toggle button{border:0;background:var(--panel);color:var(--muted);
+  padding:4px 12px;font:inherit;font-size:12px;cursor:pointer}
+.toggle button.on{background:var(--accent);color:#fff;font-weight:600}
+
+table.items{width:100%;border-collapse:collapse;font-size:12.5px}
+table.items th{font-size:10px;text-transform:uppercase;letter-spacing:.04em;
+  color:var(--muted);text-align:left;padding:5px 5px;border-bottom:1px solid var(--rule);font-weight:600}
+table.items td{padding:4px 3px;vertical-align:top}
+table.items input,table.items select{padding:5px 6px;font-size:12.5px}
+table.items input.bad-input,table.items select.bad-input{
+  border-color:var(--bad);background:var(--bad-soft)}
+table.items .x{border:0;background:transparent;color:var(--muted);cursor:pointer;
+  font-size:16px;padding:0 4px;line-height:1}
+table.items .x:hover{color:var(--bad)}
+
+button.action{
+  border:1px solid var(--rule);background:var(--panel-2);color:var(--ink);
+  padding:7px 13px;border-radius:6px;font:inherit;font-size:13px;cursor:pointer
+}
+button.action:hover{border-color:var(--accent)}
+button.action.primary{background:var(--accent);border-color:var(--accent);
+  color:#fff;font-weight:600}
+button.action:disabled{opacity:.45;cursor:not-allowed}
+.actions{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+
+.verdict{padding:14px 15px;border-bottom:1px solid var(--rule)}
+.verdict .split{font-size:21px;font-weight:700;letter-spacing:-.02em}
+.verdict .split.inter{color:var(--accent)}
+.verdict .split.intra{color:var(--ok)}
+.verdict .split.none{color:var(--warn)}
+.verdict .pos{margin-top:6px;font-size:13px}
+.verdict .pos b{font-weight:600}
+.verdict .why{margin-top:5px;font-size:12px;color:var(--muted)}
+.rule-chip{display:inline-block;font-family:var(--mono);font-size:11px;
+  background:var(--accent-soft);color:var(--accent);padding:1px 6px;
+  border-radius:4px;margin-left:5px}
+
+.totals{width:100%;border-collapse:collapse;font-size:13px}
+.totals td{padding:4px 15px}
+.totals td:last-child{text-align:right;font-family:var(--mono)}
+.totals td:first-child{color:var(--muted)}
+.totals tr.grand td{border-top:1px solid var(--rule);font-weight:700;
+  font-size:15px;padding-top:8px}
+.totals tr.grand td:first-child{color:var(--ink)}
+.words{padding:8px 15px 14px;font-size:12.5px;color:var(--ink-2)}
+
+.refusal{background:var(--bad-soft);border:1px solid var(--bad);
+  border-radius:8px;padding:13px 15px;margin-bottom:16px}
+.refusal h3{margin:0 0 8px;font-size:13px;color:var(--bad)}
+.refusal .f{border-top:1px solid rgba(163,36,31,.25);padding:7px 0}
+.refusal .f:last-child{padding-bottom:0}
+.refusal .fld{font-family:var(--mono);font-size:12px;font-weight:700}
+.refusal .msg{font-size:12.5px;color:var(--ink-2);margin-top:2px}
+.refusal .rid{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:2px}
+.refusal .none{font-size:12px;color:var(--muted);margin-top:9px;font-style:italic}
+
+.warns{background:var(--warn-soft);border:1px solid var(--warn);
+  border-radius:8px;padding:11px 14px;margin-bottom:16px}
+.warns h3{margin:0 0 6px;font-size:12px;color:var(--warn)}
+.warns .w{font-size:12.5px;color:var(--ink-2);padding:3px 0}
+.warns .w b{font-family:var(--mono);font-size:11.5px}
+
+.checks{list-style:none;margin:0;padding:0;font-size:12.5px}
+.checks li{padding:3px 0;color:var(--ink-2);display:flex;gap:8px}
+.checks li::before{content:"✓";color:var(--ok);font-weight:700}
+
+.facts{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:11.5px}
+.facts td{padding:2.5px 6px;border-bottom:1px solid var(--rule-2)}
+.facts td:nth-child(2){text-align:right;white-space:nowrap}
+.facts td:nth-child(3){color:var(--muted)}
+
+.manifest{font-size:11.5px;color:var(--muted);line-height:1.6;padding:12px 15px;
+  border-top:1px solid var(--rule);background:var(--panel-2)}
+
+iframe.pdf{width:100%;height:760px;border:0;background:#fff;display:block}
+
+details.adv{border-top:1px solid var(--rule)}
+details.adv summary{padding:9px 15px;font-size:11px;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--muted);cursor:pointer;font-weight:600;
+  background:var(--panel-2)}
+details.adv .body{padding:12px 15px}
+
+.scope{font-size:11.5px;color:var(--muted);line-height:1.55;padding:11px 15px;
+  border-top:1px solid var(--rule)}
+.busy{opacity:.55;transition:opacity .12s}
+
+/* ---------- reminder mode ---------- */
+
+.modeswitch{display:inline-flex;border:1px solid var(--rule);border-radius:6px;
+  overflow:hidden}
+.modeswitch button{border:0;background:var(--panel);color:var(--muted);
+  padding:5px 12px;font:inherit;font-size:12px;cursor:pointer}
+.modeswitch button + button{border-left:1px solid var(--rule)}
+.modeswitch button.on{background:var(--accent);color:#fff;font-weight:600}
+
+/* A reminder's headline is the ageing, and overdue should not read as neutral.
+   .inter/.intra carry the tax split's meaning, so these get their own pair. */
+.verdict .split.overdue{color:var(--bad)}
+.verdict .split.due{color:var(--ok)}
+
+/* Hints that sit directly in a card body rather than under a field. */
+.card .body > .hint{color:var(--muted);font-size:11.5px;line-height:1.55}
+
+.checkline{display:flex;align-items:center;gap:8px;font-size:13px;
+  text-transform:none;letter-spacing:0;font-weight:400;color:var(--ink);
+  margin-bottom:0;cursor:pointer}
+.checkline input{width:auto;margin:0}
+
+.attached{display:flex;align-items:flex-start;gap:8px;margin-top:10px;
+  padding:8px 10px;border-radius:5px;background:var(--ok-soft);
+  border:1px solid var(--rule);color:var(--ink-2);font-size:11.5px;
+  line-height:1.5}
+.attached .x{border:0;background:transparent;color:var(--muted);cursor:pointer;
+  font-size:15px;line-height:1;padding:0 2px;width:auto;flex:none}
+
+table.kv{width:100%;border-collapse:collapse;font-size:12px}
+table.kv td{padding:3px 15px;vertical-align:top}
+table.kv td:first-child{color:var(--muted);white-space:nowrap;width:1%;
+  padding-right:12px}
+table.kv td:last-child{color:var(--ink-2)}

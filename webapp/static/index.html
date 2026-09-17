@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quotation Studio</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header>
+  <h1>Quotation Studio</h1>
+  <span class="modeswitch" id="mode">
+    <button type="button" class="on" data-mode="document">Quotation / Proforma</button>
+    <button type="button" data-mode="reminder">Payment reminder</button>
+  </span>
+  <span class="claim" id="claim"></span>
+  <span class="spacer"></span>
+  <span class="env" id="env"></span>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ left: the input ============ -->
+  <div>
+    <div class="card" data-mode="document">
+      <h2>Document</h2>
+      <div class="body">
+        <div class="row three">
+          <div class="field">
+            <label for="doc_type">Type</label>
+            <select id="doc_type"></select>
+          </div>
+          <div class="field">
+            <label for="number">Number</label>
+            <input id="number" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="issue_date">Issue date</label>
+            <input id="issue_date" type="date">
+          </div>
+        </div>
+        <div class="field" id="doc_disclaimer_wrap">
+          <div class="hint" id="doc_disclaimer"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-mode="document">
+      <h2>Registration gate
+        <span class="note">&mdash; answered before any tax is computed</span>
+      </h2>
+      <div class="body">
+        <div class="gate" id="gate"></div>
+        <div class="hint" id="gate_effect" style="margin-top:10px"></div>
+      </div>
+    </div>
+
+    <div class="card" data-mode="reminder">
+      <h2>Reminder</h2>
+      <div class="body">
+        <div class="row two">
+          <div class="field">
+            <label for="r_number">Reminder number</label>
+            <input id="r_number" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="r_as_of">Position as at</label>
+            <input id="r_as_of" type="date">
+          </div>
+        </div>
+        <div class="hint">
+          The date this reminder states its position as at. Always yours to set
+          &mdash; the engine never reads the clock, so the same input produces
+          the same letter next year.
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-mode="reminder">
+      <h2>What you are chasing
+        <span class="note">&mdash; your declaration, not verified here</span>
+      </h2>
+      <div class="body">
+        <div class="row three">
+          <div class="field">
+            <label for="r_kind">Against</label>
+            <select id="r_kind"></select>
+          </div>
+          <div class="field">
+            <label for="r_ref_number">Its number</label>
+            <input id="r_ref_number" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="r_ref_dated">Its date</label>
+            <input id="r_ref_dated" type="date">
+          </div>
+        </div>
+        <div class="field" id="f_r_amount">
+          <label for="r_amount">Amount payable on it</label>
+          <input id="r_amount" class="num" autocomplete="off" placeholder="0.00">
+        </div>
+        <div class="hint" id="r_kind_hint"></div>
+        <div class="attached" id="r_attached" hidden>
+          <span id="r_attached_text"></span>
+          <button type="button" class="x" id="r_detach" title="Detach">&times;</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-mode="reminder">
+      <h2>Payment terms
+        <span class="note">&mdash; the due date is derived, not typed</span>
+      </h2>
+      <div class="body">
+        <div class="row three">
+          <div class="field">
+            <label for="r_credit_days">Credit days</label>
+            <input id="r_credit_days" class="num" autocomplete="off" placeholder="15">
+          </div>
+          <div class="field">
+            <label for="r_due_date">or due date</label>
+            <input id="r_due_date" type="date">
+          </div>
+          <div class="field">
+            <label for="r_buckets">Ageing boundaries</label>
+            <input id="r_buckets" autocomplete="off" placeholder="30, 60, 90">
+          </div>
+        </div>
+        <div class="hint">
+          Calendar days, not working days &mdash; working days would need a
+          holiday calendar this tool does not have and will not guess. Give both
+          and they must agree.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>You</h2>
+      <div class="body">
+        <div class="field">
+          <label for="s_name">Business name</label>
+          <input id="s_name" autocomplete="off">
+        </div>
+        <div class="row two">
+          <div class="field" id="f_s_gstin">
+            <label for="s_gstin">GSTIN</label>
+            <input id="s_gstin" autocomplete="off" spellcheck="false">
+            <div class="hint" id="s_gstin_hint"></div>
+          </div>
+          <div class="field">
+            <label for="s_state">Your state</label>
+            <select id="s_state"></select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="s_address">Address</label>
+          <textarea id="s_address" rows="2"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Client</h2>
+      <div class="body">
+        <div class="field">
+          <label for="c_name">Client name</label>
+          <input id="c_name" autocomplete="off">
+        </div>
+        <div class="row two">
+          <div class="field" id="f_c_gstin">
+            <label for="c_gstin">Client GSTIN <span style="text-transform:none;font-weight:400">(blank = unregistered)</span></label>
+            <input id="c_gstin" autocomplete="off" spellcheck="false">
+            <div class="hint" id="c_gstin_hint"></div>
+          </div>
+          <div class="field">
+            <label for="c_state">Client state</label>
+            <select id="c_state"></select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="c_address">Address</label>
+          <textarea id="c_address" rows="2"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-mode="document">
+      <h2>Place of supply
+        <span class="note">&mdash; derived, not a dropdown</span>
+      </h2>
+      <div class="body">
+        <div class="field">
+          <label id="nature_label" for="nature"></label>
+          <select id="nature"></select>
+        </div>
+        <div class="field" id="follow_up_wrap" hidden>
+          <label id="follow_up_label" for="follow_up"></label>
+          <select id="follow_up"></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-mode="document">
+      <h2>Line items
+        <span class="note">&mdash; rate and HSN/SAC are your declarations</span>
+      </h2>
+      <div class="body">
+        <table class="items">
+          <thead>
+            <tr>
+              <th style="width:34%">Description</th>
+              <th style="width:13%">HSN/SAC</th>
+              <th style="width:10%">Qty</th>
+              <th style="width:16%">Rate</th>
+              <th style="width:13%">Disc %</th>
+              <th style="width:12%">GST %</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="items"></tbody>
+        </table>
+        <div class="actions" style="margin-top:11px">
+          <button class="action" id="add_item">Add line</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-mode="reminder">
+      <h2>Payments received
+        <span class="note">&mdash; declared, never detected</span>
+      </h2>
+      <div class="body">
+        <table class="items">
+          <thead>
+            <tr>
+              <th style="width:24%">Received on</th>
+              <th style="width:24%">Amount</th>
+              <th style="width:20%">Method</th>
+              <th style="width:28%">Reference</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="payments"></tbody>
+        </table>
+        <div class="actions" style="margin-top:11px">
+          <button class="action" id="add_payment">Add payment</button>
+        </div>
+        <div class="hint" style="margin-top:9px">
+          This tool has no connection to any bank account. A payment it was not
+          told about does not exist as far as the letter is concerned.
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-mode="reminder">
+      <h2>Interest
+        <span class="note">&mdash; optional, and never assumed</span>
+      </h2>
+      <div class="body">
+        <label class="checkline">
+          <input type="checkbox" id="r_interest_on">
+          Charge interest on the overdue balance
+        </label>
+        <div id="r_interest_fields" hidden style="margin-top:11px">
+          <div class="row three">
+            <div class="field">
+              <label for="r_rate">Rate % per annum</label>
+              <input id="r_rate" class="num" autocomplete="off" placeholder="14">
+            </div>
+            <div class="field">
+              <label for="r_day_count">Day-count basis</label>
+              <select id="r_day_count">
+                <option value="365">365</option>
+                <option value="360">360</option>
+                <option value="366">366</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="r_basis">Basis</label>
+              <select id="r_basis"></select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="r_declared_in">Where you agreed it</label>
+            <input id="r_declared_in" autocomplete="off"
+                   placeholder="clause 4 of purchase order AUR/PO/2026/4412">
+          </div>
+          <div class="hint">
+            Required. It is printed on the letter so the recipient can look it
+            up. Whether interest is chargeable at all is a matter of your
+            contract or of statute, and this tool has no view on either.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Terms &amp; payment</h2>
+      <div class="body">
+        <div class="field">
+          <label for="terms">Terms, one per line</label>
+          <textarea id="terms" rows="3"></textarea>
+        </div>
+        <div class="row two">
+          <div class="field">
+            <label for="upi_id">UPI id (optional QR)</label>
+            <input id="upi_id" autocomplete="off" spellcheck="false">
+          </div>
+          <div class="field" data-mode="document">
+            <label for="valid_until">Valid until</label>
+            <input id="valid_until" type="date">
+          </div>
+          <div class="field" data-mode="reminder">
+            <label for="r_history">Earlier reminders sent, one date per line</label>
+            <textarea id="r_history" rows="2" placeholder="2026-08-24"></textarea>
+          </div>
+        </div>
+        <div class="field" data-mode="reminder">
+          <label for="r_notes">Notes</label>
+          <textarea id="r_notes" rows="2"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ right: the verdict ============ -->
+  <div>
+    <div class="card">
+      <h2>Load an example</h2>
+      <div class="body">
+        <div class="actions" id="examples"></div>
+      </div>
+    </div>
+
+    <div id="refusal_slot"></div>
+    <div id="warn_slot"></div>
+
+    <div class="card" id="verdict_card" data-mode="document" hidden>
+      <h2>Verdict</h2>
+      <div class="verdict">
+        <div class="split" id="split"></div>
+        <div class="pos" id="pos"></div>
+        <div class="why" id="why"></div>
+      </div>
+      <table class="totals" id="totals"></table>
+      <div class="words" id="words"></div>
+      <div class="manifest" id="manifest"></div>
+    </div>
+
+    <div class="card" id="rem_verdict_card" data-mode="reminder" hidden>
+      <h2>Verdict</h2>
+      <div class="verdict">
+        <div class="split" id="r_status"></div>
+        <div class="pos" id="r_stage"></div>
+        <div class="why" id="r_stage_why"></div>
+      </div>
+      <div class="body" style="padding-top:0">
+        <table class="kv" id="r_dates"></table>
+      </div>
+      <table class="totals" id="r_totals"></table>
+      <div class="words" id="r_words"></div>
+      <div class="manifest" id="r_manifest"></div>
+    </div>
+
+    <div class="card" id="checks_card" hidden>
+      <h2>Checks run</h2>
+      <div class="body"><ul class="checks" id="checks"></ul></div>
+      <details class="adv" id="dates_adv" hidden>
+        <summary>Calendar &mdash; every date and how it was derived</summary>
+        <div class="body"><table class="facts" id="date_facts"></table></div>
+      </details>
+      <details class="adv">
+        <summary>Fact table &mdash; every figure and its formula</summary>
+        <div class="body"><table class="facts" id="facts"></table></div>
+      </details>
+      <div class="scope" id="scope"></div>
+    </div>
+
+    <div class="card">
+      <h2 id="out_title">Document</h2>
+      <div class="body">
+        <div class="actions">
+          <button class="action primary" id="render">Render PDF</button>
+          <button class="action" id="download" disabled>Download</button>
+          <span class="env" id="render_status"></span>
+        </div>
+      </div>
+      <iframe class="pdf" id="pdf" hidden title="Rendered document"></iframe>
+    </div>
+  </div>
+
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+{
+  "doc_type": "proforma",
+  "number": "PF-0042",
+  "issue_date": "2026-09-16",
+  "valid_until": "2026-09-30",
+
+  "registration": {
+    "registered": true,
+    "composition": false,
+    "reverse_charge": false
+  },
+
+  "supplier": {
+    "name": "Sundara Day Care Centre",
+    "gstin": "29AAACS1429B1ZR",
+    "state_code": "29",
+    "address": ["18 Kasturba Cross Road", "Bengaluru 560001"],
+    "phone": "+91 80 4123 7788"
+  },
+
+  "client": {
+    "name": "Ms R. Iyer",
+    "state_code": "27",
+    "address": ["Powai, Mumbai 400076"]
+  },
+
+  "place_of_supply": {
+    "nature": "performance_based",
+    "performance_state": "29"
+  },
+
+  "items": [
+    {
+      "description": "Day-care procedure package (administrative estimate)",
+      "hsn_sac": "999312",
+      "quantity": "1",
+      "unit": "nos",
+      "rate": "46500",
+      "gst_rate": "0"
+    },
+    {
+      "description": "Private room, per night",
+      "hsn_sac": "996311",
+      "quantity": "2",
+      "unit": "nights",
+      "rate": "4200",
+      "gst_rate": "12"
+    }
+  ],
+
+  "terms": [
+    "This is an estimate. Final charges depend on the procedure actually performed.",
+    "Payable in full before discharge.",
+    "Rates for exempt services are shown at 0% as declared by the centre."
+  ],
+  "notes": "Estimate prepared for insurance pre-authorisation."
+}

@@ -1,0 +1,70 @@
+{
+  "doc_type": "quotation",
+  "number": "QT-2026-0184",
+  "issue_date": "2026-09-16",
+  "valid_until": "2026-10-15",
+
+  "registration": {
+    "registered": true,
+    "composition": false,
+    "reverse_charge": false
+  },
+
+  "supplier": {
+    "name": "Meridian Learning Labs LLP",
+    "gstin": "27AAPFU0939F1ZV",
+    "state_code": "27",
+    "address": ["4th Floor, Trellis House", "Prabhadevi, Mumbai 400025"],
+    "email": "accounts@meridianlabs.in",
+    "phone": "+91 98200 41123"
+  },
+
+  "client": {
+    "name": "Auriga Systems Pvt Ltd",
+    "state_code": "29",
+    "address": ["Plot 14, Outer Ring Road", "Bellandur, Bengaluru 560103"]
+  },
+
+  "place_of_supply": {
+    "nature": "training",
+    "performance_state": "29"
+  },
+
+  "items": [
+    {
+      "description": "Two-day onsite workshop: Applied AI for Operations Teams",
+      "hsn_sac": "999293",
+      "quantity": "2",
+      "unit": "days",
+      "rate": "85000",
+      "gst_rate": "18"
+    },
+    {
+      "description": "Courseware licence and printed workbooks",
+      "hsn_sac": "998431",
+      "quantity": "40",
+      "unit": "seats",
+      "rate": "1250",
+      "gst_rate": "18",
+      "discount_kind": "percent",
+      "discount_value": "10"
+    },
+    {
+      "description": "Post-workshop assessment and reporting",
+      "hsn_sac": "998319",
+      "quantity": "1",
+      "unit": "nos",
+      "rate": "18500",
+      "gst_rate": "18"
+    }
+  ],
+
+  "terms": [
+    "This quotation is valid for 30 days from the date of issue.",
+    "50% advance on acceptance, balance within 15 days of delivery.",
+    "Travel and accommodation for two trainers billed at actuals.",
+    "Rescheduling within 7 days of the delivery date attracts a 25% fee."
+  ],
+  "notes": "Workshop dates to be confirmed against trainer availability.",
+  "upi_id": "meridianlabs@okhdfcbank"
+}
